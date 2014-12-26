@@ -21,6 +21,7 @@
 @property (nonatomic, assign) NSTimeInterval pulseInterval;     // default: 0s
 @property (nonatomic, assign) float repeatCount;                // default: INFINITY
 @property (nonatomic, assign) BOOL useTimingFunction;           // default: YES should use timingFunction for animation
+@property (nonatomic, assign) BOOL keepExpanded;
 
 - (id)initWithRepeatCount:(float)repeatCount;
 

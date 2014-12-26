@@ -32,9 +32,10 @@
         self.keyTimeForHalfOpacity = 0.2;
         self.animationDuration = 3;
         self.pulseInterval = 0;
-        self.repeatCount = repeatCount;
+        self.repeatCount = 0;
         self.backgroundColor = [[UIColor colorWithRed:0.000 green:0.478 blue:1.000 alpha:1] CGColor];
         self.useTimingFunction = YES;
+        self.keepExpanded = NO;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
             
@@ -89,7 +90,15 @@
     
     CAKeyframeAnimation *opacityAnimation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
     opacityAnimation.duration = self.animationDuration;
-    opacityAnimation.values = @[@(self.fromValueForAlpha), @0.45, @0];
+    
+    if (self.keepExpanded) {
+        [self.animationGroup setFillMode:kCAFillModeBoth];
+        opacityAnimation.values = @[@(self.fromValueForAlpha), @0.45, @0.45];
+    }else
+    {
+        opacityAnimation.values = @[@(self.fromValueForAlpha), @0.45, @0];
+    }
+    
     opacityAnimation.keyTimes = @[@0, @(self.keyTimeForHalfOpacity), @1];
     opacityAnimation.removedOnCompletion = NO;
     
