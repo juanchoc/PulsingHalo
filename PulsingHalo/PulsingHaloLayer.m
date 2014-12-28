@@ -23,7 +23,7 @@
     self = [super init];
     if (self) {
         self.contentsScale = [UIScreen mainScreen].scale;
-        self.opacity = 0;
+        self.opacity = 0.0f;
         
         // default
         self.radius = 60;
@@ -92,11 +92,14 @@
     opacityAnimation.duration = self.animationDuration;
     
     if (self.keepExpanded) {
-        [self.animationGroup setFillMode:kCAFillModeBoth];
+        [self.animationGroup setFillMode:kCAFillModeForwards];
+        opacityAnimation.removedOnCompletion = NO;
         opacityAnimation.values = @[@(self.fromValueForAlpha), @0.45, @0.45];
+        self.opacity = 0.45f;
     }else
     {
         opacityAnimation.values = @[@(self.fromValueForAlpha), @0.45, @0];
+        self.opacity = 0.0f;
     }
     
     opacityAnimation.keyTimes = @[@0, @(self.keyTimeForHalfOpacity), @1];
